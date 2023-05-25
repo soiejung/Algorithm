@@ -22,7 +22,7 @@ for test_case in range(T):
             if n == 1:
 
                 while max_heap and not visited[max_heap[0][1]]:
-                    heapq.heappop((max_heap))
+                    heapq.heappop(max_heap)
 
                 if max_heap:
                     visited[max_heap[0][1]] = False
