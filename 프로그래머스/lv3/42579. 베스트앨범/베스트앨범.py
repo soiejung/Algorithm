@@ -1,29 +1,33 @@
 def solution(genres, plays):
     answer = []
-    playsDic=[]
-    gen_total = {}
-    gen_total_s={}
-    playsDic = [[genres[i], plays[i], i] for i in range(len(genres))]
-    playsDic = sorted(playsDic, key=lambda x: (x[0],-x[1], x[2]))
+    sum_dict = {}
     
-    for g in playsDic:
-        
-        if g[0] in gen_total:
-            
-            gen_total[g[0]] += g[1]
+    for i in range(len(genres)):
+        if genres[i] in sum_dict.keys():
+            s = sum_dict[genres[i]]
+            sum_dict[genres[i]] += plays[i]
         else:
-            gen_total[g[0]] = g[1]
-            
-    gen_total_s = sorted(gen_total.items(), key=lambda x: -x[1])
-    
-    for g in gen_total_s:
-        count = 0
-        for p in playsDic:
-            if g[0] == p[0]:
+            sum_dict[genres[i]] = plays[i]
+      
+    sum_dict = sorted(sum_dict.items(), key = lambda x : x[1], reverse = True)
+    print(sum_dict)
+    dict = {}
+    lst = []
+    for genre, play in sum_dict:
+        temp = []
+        for i in range(len(genres)):
+            if genre == genres[i]:
+                temp.append((plays[i], i))
+        temp.sort(key = lambda x : (x[0],-x[1]), reverse = True)
+        count=0
+        for t in temp:
+            if count ==2:
+                break
+            else:
+                lst.append(t)
                 count += 1
-                if count > 2:
-                    break
-                else:
-                    answer.append(p[2])
-
+    
+    for l in lst:
+        answer.append(l[1])
+        
     return answer
