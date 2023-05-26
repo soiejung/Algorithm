@@ -1,18 +1,33 @@
 def solution(n, computers):
     answer = 0
-    visited = [False] * n
+    visited = [False for _ in range(n)]
+    matrix = []
+    
+    for i in range(n):
+        lst = []
+        for j in range(n):
+            if computers[i][j] == 1:
+                lst.append(j)
+        matrix.append(lst)
 
     
-
-    def dfs(v):
-        visited[v] = True
+    def dfs(x):
+        visited[x] = True
+        for m in matrix[x]:
+            if not visited[m]:
+                dfs(m)
     
-        for i in range(n):
-            if not visited[i] and computers[v][i]:
+    for i in range(n):
+        if not visited[i]:
+            if not matrix[i]:
+                answer += 1
+                visited[i] = True
+            else:
                 dfs(i)
-            
-    for idx in range(n):
-        if not visited[idx]:
-            dfs(idx)
-            answer += 1
+                answer += 1
+    
+    
     return answer
+
+        
+            
