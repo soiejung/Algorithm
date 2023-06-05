@@ -1,19 +1,29 @@
+from collections import deque
 def solution(numbers, target):
     answer = 0
-    from collections import deque
-    queue=deque()
-    queue.append([-numbers[0], 0])
-    queue.append([numbers[0],0])
-    
-    
-    while queue:
-        temp, idx = queue.popleft()
-        idx += 1
-        if idx < len(numbers):
-            queue.append([temp-numbers[idx],idx])
-            queue.append([temp+numbers[idx], idx])
-        else:
-            if temp == target:
-                answer += 1
+    lst = deque()
+    numbers = deque(numbers)
+    temp = numbers.popleft()
+    size = len(numbers)
+    lst.append(temp)
+    lst.append(-1*temp)
+
+    while True:
         
+        if numbers:
+            length = len(lst)
+
+            tmp = numbers.popleft()
+            for i in range(length):
+                l = lst.popleft()
+                lst.append(l+tmp)
+                lst.append(l-tmp)
+
+        else:
+            break
+
+        
+    for l in lst:
+        if l == target:
+            answer += 1
     return answer
