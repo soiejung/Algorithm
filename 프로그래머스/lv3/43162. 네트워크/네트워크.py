@@ -1,33 +1,31 @@
+from collections import deque
 def solution(n, computers):
     answer = 0
-    visited = [False for _ in range(n)]
-    matrix = []
+    visited = [0]*n
+    lst = []
     
     for i in range(n):
-        lst = []
+        l = []
         for j in range(n):
             if computers[i][j] == 1:
-                lst.append(j)
-        matrix.append(lst)
-
-    
-    def dfs(x):
-        visited[x] = True
-        for m in matrix[x]:
-            if not visited[m]:
-                dfs(m)
+                l.append(j)
+        lst.append(l)
+                
+    def dfs(v):
+        
+        visited[v] = 1
+        for tmp in lst[v]:
+            if not visited[tmp]:
+                dfs(tmp)
+                
     
     for i in range(n):
         if not visited[i]:
-            if not matrix[i]:
+            if not lst[i]:
                 answer += 1
-                visited[i] = True
+                visited[i] = 1
             else:
                 dfs(i)
                 answer += 1
-    
-    
-    return answer
-
         
-            
+    return answer
