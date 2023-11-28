@@ -1,3 +1,5 @@
+# https://www.acmicpc.net/problem/11660
+
 import sys
 # 시간초과 나서 넣었음
 input = sys.stdin.readline

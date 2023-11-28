@@ -1,3 +1,5 @@
+# https://www.acmicpc.net/problem/2304
+
 N = int(input())
 
 lst = {}
