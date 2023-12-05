@@ -22,6 +22,8 @@ input = sys.stdin.readline
     recur(idx+T[idx],pay+P[idx])
     """
 
+# 탑다운 dp
+"""
 def recur(idx):
 
     if idx > N:
@@ -50,3 +52,20 @@ for _ in range(N):
 dp = [-1 for _ in range(N)]
 answer = recur(0)
 print(answer)
+"""
+
+N = int(input())
+interview = [list(map(int, input().split())) for _ in range(N)]
+# 바텀업 dp
+dp = [0 for _ in range(N+1)]
+
+# 역순으로 하라는 뜻
+for idx in range(N)[::-1]:
+
+    if idx + interview[idx][0] > N:
+        dp[idx] = dp[idx+1]
+    else:
+        # 점화식
+        dp[idx] = max(dp[idx+interview[idx][0]]+interview[idx][1], dp[idx+1])
+
+print(max(dp))
