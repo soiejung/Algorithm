@@ -44,7 +44,7 @@ dp = [[0] * (K+1) for _ in range(N+1)]
 for idx in range(1,N+1): # 행: 물건의 갯수
     for w in range(1,K+1): # 열: 가방의 최대 용량
 
-        # 혅ㅐ 물건의 무게가 가방의 최대 용량보다 크다면
+        # 현재 물건의 무게가 가방의 최대 용량보다 크다면
         if items[idx][0] > w:
             # 뒤에서 진행하는거라 앞 인덱스로 가야함
             dp[idx][w] = dp[idx-1][w]
