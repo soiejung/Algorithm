@@ -7,3 +7,12 @@ FROM (
     FROM Employee
 )A
 WHERE ranking = 2
+
+/*
+SELECT max(salary) as SecondHighestSalary
+FROM Employee
+WHERE salary NOT IN (
+    SELECT MAX(Salary)
+    FROM Employee
+)
+*/
