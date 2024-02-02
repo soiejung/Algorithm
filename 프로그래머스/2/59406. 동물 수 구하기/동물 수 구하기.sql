@@ -1,0 +1,7 @@
+-- 코드를 입력하세요
+SELECT COUNT(*) AS count
+FROM (
+    SELECT ANIMAL_ID
+    FROM ANIMAL_INS
+    GROUP BY ANIMAL_ID
+)A
