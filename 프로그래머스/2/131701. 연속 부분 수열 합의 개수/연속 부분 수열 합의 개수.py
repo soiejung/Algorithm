@@ -1,10 +1,14 @@
 def solution(elements):
-    N = len(elements)
+    answer = 0
+    n = len(elements)
     dp = elements[:]
-    elements = 2 * elements
-    answer = set(dp)
-    for i in range(2, N):
-        for j in range(N):
-            dp[j] = dp[j] + elements[j+i-1]
-            answer.add(dp[j])
-    return len(answer) + 1
+    lst = set(dp)
+
+    for i in range(2,n+1):
+        for j in range(n):
+            dp[j] = dp[j] + elements[(i+j-1)%n]
+            
+            lst.add(dp[j]) 
+
+    answer = len(lst)
+    return answer
