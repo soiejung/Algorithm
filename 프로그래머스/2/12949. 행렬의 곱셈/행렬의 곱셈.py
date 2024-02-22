@@ -1,6 +1,6 @@
 def solution(arr1, arr2):
     answer = [[]]
-    m, n, k = 0, 0, 0
+    
     
     for i in range(len(arr1)):
         lst = []
