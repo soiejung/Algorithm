@@ -1,0 +1,31 @@
+-- 코드를 입력하세요
+# 1. 자동차 종류 세단 또는 suv
+# 2. 2022-11-01 ~ 2022-11-30 까지 대여 가능
+# 3. 30일간의 대여 금액 50만원 이상 200만원 미만
+SELECT C.CAR_ID, C.CAR_TYPE, FEE
+FROM (
+    SELECT A.CAR_ID, A.CAR_TYPE, ROUND(30 * DAILY_FEE * (100 - DISCOUNT_RATE) / 100, 0 ) AS FEE
+    FROM (
+        SELECT c.CAR_ID, c.CAR_TYPE, DAILY_FEE
+        FROM CAR_RENTAL_COMPANY_CAR c
+        INNER JOIN (
+            SELECT DISTINCT CAR_ID
+            FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+            WHERE CAR_ID NOT IN (
+                SELECT CAR_ID
+                FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+                WHERE START_DATE <='2022-11-30' AND END_DATE >= '2022-11-01'
+            )
+        )h
+        ON c.CAR_ID = h.CAR_ID
+        WHERE CAR_TYPE in ('세단', 'SUV')
+    )A INNER JOIN (
+
+        SELECT CAR_TYPE, DURATION_TYPE, REPLACE(DISCOUNT_RATE, '%', '') AS DISCOUNT_RATE
+        FROM CAR_RENTAL_COMPANY_DISCOUNT_PLAN 
+        WHERE CAR_TYPE IN ('세단','SUV') AND DURATION_TYPE = '30일 이상'
+    )B
+    ON A.CAR_TYPE = B.CAR_TYPE
+)C
+WHERE FEE >= 500000 and FEE < 2000000
+ORDER BY FEE desc, CAR_TYPE, CAR_ID desc
