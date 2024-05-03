@@ -1,15 +1,21 @@
 def solution(sizes):
     answer = 0
-    big = []
-    small = []
+    w, h = 0,0
     
-    for i in range(len(sizes)):
-        if sizes[i][0] >= sizes[i][1]:
-            big.append(sizes[i][0])
-            small.append(sizes[i][1])
+    for s in sizes:
+        if s[0] > s[1]:
+            if w < s[0]:
+                w = s[0]
+            if h < s[1]:
+                h = s[1]
         else:
-            big.append(sizes[i][1])
-            small.append(sizes[i][0])
-            
-    answer = max(big)*max(small)
+            if w < s[1]:
+                w = s[1]
+            if h < s[0]:
+                h = s[0]
+    
+
+    answer = w * h
+        
+        
     return answer
