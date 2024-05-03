@@ -1,14 +1,9 @@
 def solution(brown, yellow):
     answer = []
     
-    for i in range(1, int(yellow**(1/2))+1):
-        if yellow % i == 0:
-            h = i
-            w = yellow // i
-            if brown + yellow == (h+2)*(w+2):
-                answer.append(h+2)
-                answer.append(w+2)
-                
-    
-    answer.sort(reverse=True)
-    return answer
+    for w in range(1,brown+yellow+1):
+        for h in range(1,w+1):
+            if w * h == brown + yellow and (w-2) * (h-2) == yellow:
+                answer.append(w)
+                answer.append(h)
+                return answer
